@@ -5,6 +5,8 @@ import { AIResponder } from './AIResponder';
 export class WhatsAppAgent {
   private client: Client;
   private aiResponder: AIResponder;
+  private lastQrUrl: string | null = null;
+  private isReady: boolean = false;
 
   constructor() {
     this.aiResponder = new AIResponder();
@@ -108,6 +110,7 @@ export class WhatsAppAgent {
       try {
          const qrcode = require('qrcode');
          const url = await qrcode.toDataURL(qrRaw);
+         this.lastQrUrl = url; // Guarda na memória pra quem entrar atrasado
          ioServer.emit('qr_code', { qrUrl: url });
       } catch (e) {
          console.error('Falha ao gerar DataURL do QR', e);
@@ -115,7 +118,19 @@ export class WhatsAppAgent {
     });
 
     this.client.on('ready', () => {
+         this.isReady = true;
+         this.lastQrUrl = null;
          ioServer.emit('whatsapp_ready', { status: 'online' });
+    });
+
+    // Quando o administrador abre a tela, enviamos o status atual imediatamente
+    ioServer.on('connection', (socket: any) => {
+        if (this.lastQrUrl) {
+            socket.emit('qr_code', { qrUrl: this.lastQrUrl });
+        }
+        if (this.isReady) {
+            socket.emit('whatsapp_ready', { status: 'online' });
+        }
     });
 
     // Emite mensagens recebidas para a tela do Dashboard ao vivo
