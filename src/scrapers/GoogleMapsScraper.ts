@@ -14,11 +14,20 @@ export class GoogleMapsScraper {
     const query = `${nicho} em ${localidade}`;
     const url = `https://www.google.com/maps/search/${encodeURIComponent(query)}`;
     
-    // Configurações rigorosas para evitar leaks de memória e falhas em Nuvem
+    // Configurações ULTRA-LEVES para não explodir servidores Cloud Grátis (RAM 512MB) com Wpp Rodando junto
     const browser: Browser = await puppeteer.launch({
-      headless: true, // NO CLOUD, DEVE SER TRUE!
+      headless: true,
       defaultViewport: null,
-      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+      args: [
+        '--no-sandbox', 
+        '--disable-setuid-sandbox', 
+        '--disable-dev-shm-usage',
+        '--disable-gpu',
+        '--no-zygote',
+        '--single-process', // A mais importante para Nuvem Free
+        '--disable-software-rasterizer',
+        '--disable-extensions'
+      ]
     });
 
     try {

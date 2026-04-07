@@ -62,7 +62,11 @@ function initSocket() {
     // Captura o QR Code da Nuvem e joga na tela
     socket.on('qr_code', (data) => {
         document.getElementById('qr-modal').classList.remove('hidden');
-        document.getElementById('qr-image').src = data.qrUrl;
+        document.getElementById('qr-spinner').classList.add('hidden');
+        document.getElementById('qr-status-text').innerText = 'Aponte o WhatsApp do celular (Aparelhos Conectados) para parear o Robô.';
+        const qrImage = document.getElementById('qr-image');
+        qrImage.src = data.qrUrl;
+        qrImage.classList.remove('hidden');
     });
 
     socket.on('whatsapp_ready', () => {
