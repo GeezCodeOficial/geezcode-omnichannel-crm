@@ -11,8 +11,8 @@ RUN npm install
 # Copia do resto das pastas
 COPY . .
 
-# Docker precisa rodar o servidor em TypeScript
-RUN npm install -g typescript ts-node
+# Docker precisa rodar o servidor em TypeScript ultraleve
+RUN npm install -g tsx
 
 EXPOSE 3000
 
@@ -20,5 +20,5 @@ EXPOSE 3000
 RUN chown -R pptruser:pptruser /app
 USER pptruser
 
-# Comando de Combate
-CMD ["npx", "ts-node", "src/server.ts"]
+# Comando de Combate - Usando TSX (Esbuild) que gasta 80% menos RAM
+CMD ["npx", "tsx", "src/server.ts"]
