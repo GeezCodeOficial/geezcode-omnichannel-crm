@@ -60,9 +60,25 @@
           <p style="color: var(--text-muted); font-size: 1.2rem;">O radar está limpo. Especifique seu alvo para extrair vulnerabilidades digitais.</p>
         </header>
 
-        <div class="glass-panel" style="display: flex; gap: 20px; margin-bottom: 40px;">
-          <input type="text" id="nicho" placeholder="Alvo (Ex: Dentistas, Advogados)" autocomplete="off">
-          <input type="text" id="localidade" placeholder="Setor geográfico (Ex: São Paulo)" autocomplete="off">
+        <div class="glass-panel" style="display: flex; gap: 20px; margin-bottom: 40px; align-items: center;">
+          <input type="text" id="nicho" placeholder="Alvo (Ex: Dentistas, Advogados)" autocomplete="off" style="flex: 1;">
+          
+          <select id="localidade" style="flex: 1; padding: 16px 24px; background: rgba(0, 0, 0, 0.4); border: 1px solid var(--border-glass); border-radius: 12px; color: #fff; font-family: 'Outfit'; font-size: 1rem; appearance: none; cursor: pointer; outline: none;">
+            <option value="" disabled selected>Selecione a Região Alvo ▼</option>
+            <option value="São Paulo, SP">São Paulo, SP (Capital)</option>
+            <option value="Rio de Janeiro, RJ">Rio de Janeiro, RJ</option>
+            <option value="Belo Horizonte, MG">Belo Horizonte, MG</option>
+            <option value="Brasília, DF">Brasília, DF</option>
+            <option value="Curitiba, PR">Curitiba, PR</option>
+            <option value="Porto Alegre, RS">Porto Alegre, RS</option>
+            <option value="Salvador, BA">Salvador, BA</option>
+            <option value="Fortaleza, CE">Fortaleza, CE</option>
+            <option value="Goiânia, GO">Goiânia, GO</option>
+            <option value="Campinas, SP">Campinas, SP (Interior de Alta Renda)</option>
+            <option value="Ribeirão Preto, SP">Ribeirão Preto, SP</option>
+            <option value="Balneário Camboriú, SC">Balneário Camboriú, SC (Polo de Luxo)</option>
+          </select>
+
           <button id="btn-generate" class="btn-primary" style="white-space: nowrap;">⚡ Travar Alvo</button>
         </div>
 
