@@ -14,9 +14,9 @@ export class GoogleMapsScraper {
     const query = `${nicho} em ${localidade}`;
     const url = `https://www.google.com/maps/search/${encodeURIComponent(query)}`;
     
-    // Configurações rigorosas para evitar leaks de memória (Senior Practice)
+    // Configurações rigorosas para evitar leaks de memória e falhas em Nuvem
     const browser: Browser = await puppeteer.launch({
-      headless: false,
+      headless: true, // NO CLOUD, DEVE SER TRUE!
       defaultViewport: null,
       args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
     });
