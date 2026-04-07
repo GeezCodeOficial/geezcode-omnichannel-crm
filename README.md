@@ -6,7 +6,7 @@
 ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=flat&logo=mongodb&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
 
-Este é um Produto SaaS desenvolvido pela **GeezCode** para automatizar a prospecção B2B (Business-to-Business) utilizando Inteligência Artificial (Google Gemini) e integração Headless com WhatsApp Web.
+Este é um Produto SaaS desenvolvido por **José Frederico da Costa Silva** sob a idealização de sua futura startup de tecnologia, a **GeezCode**. A missão da plataforma é automatizar a prospecção B2B (Business-to-Business) utilizando Inteligência Artificial (Google Gemini) e integração Headless com WhatsApp Web.
 
 Diferente de geradores de leads comuns, esta arquitetura atua como um Zendesk privado: ela minera os contatos, inicia a venda e, se a negociação atingir alta complexidade técnica, o robô faz o **"Handoff"** (Transbordo), calando o agente de IA e transferindo o controle do Socket Web para o painel de atendimento humano.
 
