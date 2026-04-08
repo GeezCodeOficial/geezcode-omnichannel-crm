@@ -17,7 +17,12 @@ import { User, setHandoff, getHistory } from './db/database';
 
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server, { cors: { origin: '*' } });
+const io = new Server(server, {
+  cors: { origin: '*' },
+  pingTimeout: 60000,
+  pingInterval: 25000,
+  maxHttpBufferSize: 1e6 // 1 MB (Prevent DDoS / Payload Flood)
+});
 const port = process.env.PORT || 3000;
 const JWT_SECRET = process.env.JWT_SECRET || 'geezcode-super-secret-key-2026';
 
@@ -141,12 +146,21 @@ server.listen(port, async () => {
   const botZapi = new WhatsAppAgent();
   botZapi.boot(io);
 
-  // Sockets WSS para tempo real do Inbox
+  // Sockets WSS para tempo real do Inbox (Com Heartbeat check e Tratamento)
   io.on('connection', (socket) => {
-    console.log('🔗 WSS: Painel Seguro conectado em tempo real.');
+    console.log(`🔗 WSS: Painel Seguro conectado em tempo real. [SocketID: ${socket.id}]`);
+    
     socket.on('admin_send_message', async (data) => {
-      const { phone, text } = data;
-      await botZapi.sendHumanMessage(phone, text);
+      try {
+        const { phone, text } = data;
+        await botZapi.sendHumanMessage(phone, text);
+      } catch (err) {
+        console.error('Falha no envio do WSS:', err);
+      }
+    });
+
+    socket.on('disconnect', (reason) => {
+      console.log(`❌ WSS: Cliente desconectado. Motivo: ${reason}`);
     });
   });
 

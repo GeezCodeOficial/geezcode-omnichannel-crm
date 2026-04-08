@@ -104,26 +104,15 @@ function openChat(phone) {
 
 function appendMessage(text, sender) {
     const div = document.createElement('div');
-    div.style.padding = '10px 15px';
-    div.style.borderRadius = '12px';
-    div.style.maxWidth = '70%';
-    div.style.marginBottom = '10px';
-    div.style.fontFamily = 'Outfit';
+    div.classList.add('chat-bubble');
 
     if (sender === 'client') {
-        div.style.background = '#2d3748';
-        div.style.color = '#fff';
-        div.style.alignSelf = 'flex-start';
+        div.classList.add('bubble-client');
     } else if (sender === 'bot') {
-        div.style.background = 'rgba(69, 162, 158, 0.2)';
-        div.style.color = '#66fcf1';
-        div.style.alignSelf = 'flex-end';
-        div.style.border = '1px solid #45a29e';
+        div.classList.add('bubble-bot');
     } else {
         // human
-        div.style.background = '#38b2ac';
-        div.style.color = '#fff';
-        div.style.alignSelf = 'flex-end';
+        div.classList.add('bubble-human');
     }
 
     div.innerText = text;

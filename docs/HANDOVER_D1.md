@@ -46,7 +46,10 @@ O WhatsApp lê as mensagens em uma fila. Ao entregar para o Google Gemini proces
 
 ---
 
-## 5. Próximos Passos Imediatos (Para o Amanhã)
-1. **Refino do Prompt Hacker do Gemini:** Mudar a mentalidade da IA para "Especialista em Venda de Sites/Tráfego para B2B".
-2. **Estilização UI/UX:** Reforçar a tela do Inbox com Tailwind ou CSS avançado.
-3. **Escalonamento:** Testar limites do Rate Limit e das Conexões WSS com 10+ usuários no frontend.
+## 5. Próximos Passos Imediatos (Concluídos - Fase 2)
+✅ **Refino do Prompt Hacker do Gemini:** Mudar a mentalidade da IA para "Especialista em Venda de Sites/Tráfego para B2B".
+✅ **Estilização UI/UX:** Reforçar a tela do Inbox com CSS avançado e sistema Dark Premium em bolhas de chat flexíveis.
+✅ **Escalonamento:** Limites configurados na Socket.io da Matrix (1MB buffer, pingTimeout e pingInterval definidos na inicialização no `server.ts`).
+
+---
+> Missões da Fase 2 (Continuar de Onde Paramos) executadas com sucesso. Pronto para Testes de Produção!
