@@ -16,7 +16,8 @@ export class WhatsAppAgent {
       authStrategy: new LocalAuth({ clientId: 'geezcode-bot' }),
       puppeteer: {
         headless: true, // Aqui precisa rodar invisível no backend
-        args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || process.env.CHROME_BIN || undefined,
+        args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage', '--disable-gpu']
       }
     });
 

@@ -186,6 +186,9 @@ document.getElementById('btn-generate').addEventListener('click', async () => {
   
       if (data.error || data.message) {
         alert(data.error || data.message);
+        if (data.error && data.error.toLowerCase().includes('token')) {
+            logout();
+        }
         return;
       }
   
