@@ -104,7 +104,9 @@ export class WhatsAppAgent {
     console.log('Iniciando pareamento com as torres do WhatsApp...');
     const { initDb } = require('../db/database');
     initDb().then(() => {
-        this.client.initialize();
+        this.client.initialize().catch(err => {
+            console.error('❌ ERRO AO INICIAR MOTOR DO WHATSAPP (Provável falta de RAM):', err);
+        });
     });
 
     // Injeta envio de QR Code direto para o navegador de quem está locado no dashboard

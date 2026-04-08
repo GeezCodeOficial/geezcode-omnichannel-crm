@@ -26,7 +26,6 @@ export class GoogleMapsScraper {
         '--disable-dev-shm-usage',
         '--disable-gpu',
         '--no-zygote',
-        '--single-process', // Essencial para rodar no Render sem fork limit
         '--disable-software-rasterizer',
         '--disable-extensions',
         '--disable-features=site-per-process', // 🔴 CYBER-FIX: Economiza ~150MB de RAM (Site Isolation off)
