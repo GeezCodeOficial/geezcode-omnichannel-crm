@@ -15,18 +15,22 @@ export class GoogleMapsScraper {
     const url = `https://www.google.com/maps/search/${encodeURIComponent(query)}`;
     
     // Configurações ULTRA-LEVES para não explodir servidores Cloud Grátis (RAM 512MB) com Wpp Rodando junto
+    const execPath = process.env.PUPPETEER_EXECUTABLE_PATH || process.env.CHROME_BIN;
     const browser: Browser = await puppeteer.launch({
       headless: true,
       defaultViewport: null,
+      ...(execPath ? { executablePath: execPath } : {}),
       args: [
         '--no-sandbox', 
         '--disable-setuid-sandbox', 
         '--disable-dev-shm-usage',
         '--disable-gpu',
         '--no-zygote',
-        '--single-process', // A mais importante para Nuvem Free
+        '--single-process', // Essencial para rodar no Render sem fork limit
         '--disable-software-rasterizer',
-        '--disable-extensions'
+        '--disable-extensions',
+        '--disable-features=site-per-process', // 🔴 CYBER-FIX: Economiza ~150MB de RAM (Site Isolation off)
+        '--js-flags=--max-old-space-size=128' // Limita a RAM do V8 dentro da aba da página
       ]
     });
 
@@ -55,7 +59,7 @@ export class GoogleMapsScraper {
           // Extrai o Rating (Regex simples para Ex: 4,5 ou 4.5)
           const ratingMatch = textContent.match(/(\d[,.]\d)\s*\(/);
           let rating = 0;
-          if (ratingMatch) {
+          if (ratingMatch && ratingMatch[1]) {
             rating = parseFloat(ratingMatch[1].replace(',', '.'));
           }
           

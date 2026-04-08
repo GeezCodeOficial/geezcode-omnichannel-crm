@@ -11,12 +11,13 @@ export class WhatsAppAgent {
   constructor() {
     this.aiResponder = new AIResponder();
     
+    const execPath = process.env.PUPPETEER_EXECUTABLE_PATH || process.env.CHROME_BIN;
     // Instancia o Client do WhatsApp com persistência de sessão para não pedir QR todo dia
     this.client = new Client({
       authStrategy: new LocalAuth({ clientId: 'geezcode-bot' }),
       puppeteer: {
         headless: true, // Aqui precisa rodar invisível no backend
-        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || process.env.CHROME_BIN || undefined,
+        ...(execPath ? { executablePath: execPath } : {}),
         args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage', '--disable-gpu']
       }
     });
